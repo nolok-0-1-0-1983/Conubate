@@ -49,10 +49,9 @@ bool base_valida(string base){
 	return !invalido;
 
 }
-
-
-int main() {
-    string num_x;
+void verificar_e_converter(){ 
+//não sei como nomear essa função, o objetivo dela é converter um numero inserido pelo usuario, sempre verificando se a entrada é valida
+	string num_x;
     short base_x;
 
 	string num_y;
@@ -116,5 +115,29 @@ int main() {
    	    }
     }
     cout << "O numero " << num_x << " na base " << base_y << " é " << num_y << endl;
+
+
+}
+
+
+int main() {
+
+	bool repetir = false;
+
+	do{
+		bool entrada_invalida = false;
+		string entrada;
+		verificar_e_converter();
+		cout << "deseja converter outro numero?(s/n)\n";
+		do{
+			entrada_invalida = false;
+			cin >> entrada;
+			if(entrada == "s"){repetir = true;}else
+			if(entrada == "n"){repetir = false;}else
+			{cout << "entrada invalida\n"; entrada_invalida = true;}
+		}while(entrada_invalida);
+
+	}while(repetir);
+
     return 0;
 }
