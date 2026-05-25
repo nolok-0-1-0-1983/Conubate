@@ -1,17 +1,19 @@
 #include <iostream>
 #include <string>
 
+#include "verificador.h"
 #include "formatador.h"
 #include "conversor_bases_potencia.h"
 #include "conversor_10_para_base_y.h"
 #include "conversor_base_x_para_10.h"
+
 
 using namespace std;
 
 bool numero_valido(string *num, int base, bool permitir_fracionario){
 	string definicoes = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	bool achou = true;
-	for(int i = 0; i < num->size() && achou; i++){
+	for(int i = 0; i < (int)num->size() && achou; i++){
 		achou = false;
 		for(int j = 0; j < base && !achou; j++){
 			if((*num)[i] > 96){(*num)[i]-=32;} //lida com letras minusculas
@@ -25,7 +27,7 @@ bool numero_valido(string *num, int base, bool permitir_fracionario){
 
 int texto_para_numero(string num){
 	int numero = 0;
-	for(int i = 0; i < num.size(); i++){
+	for(int i = 0; i < (int)num.size(); i++){
 		numero *= 10;
 		numero += de_caractere_para_num(num[i]);
 	}
@@ -49,95 +51,109 @@ bool base_valida(string base){
 	return !invalido;
 
 }
-void verificar_e_converter(){ 
-//não sei como nomear essa função, o objetivo dela é converter um numero inserido pelo usuario, sempre verificando se a entrada é valida
+
+string converter(string num_x, short base_x, short base_y, bool passo_a_passo){
+
+	string num_y;
+	short potencia_bases[4];
+
+	if (base_x == 10) {
+   	    num_y = de_10_para_base_y(num_x, base_y, passo_a_passo);
+   	} else if (base_y == 10) {
+   	    num_y = de_base_x_para_10(num_x, base_x, passo_a_passo);
+   	} else {
+   	    descobre_potencia(base_x, base_y, potencia_bases);
+   	    if (potencia_bases[0] == potencia_bases[2]) {
+   	        num_y = entre_bases_potencia(num_x, base_x, base_y, potencia_bases, passo_a_passo);
+   		} else {
+   	        num_y = de_base_x_para_10(num_x, base_x, passo_a_passo);
+   	        num_y = de_10_para_base_y(num_y, base_y, passo_a_passo);
+   	    }
+    }
+
+	return num_y;
+}
+
+void verificar_e_converter(){
 	string num_x;
     short base_x;
 
 	string num_y;
     short base_y;
-    short potencia_bases[4];
 
 	string temp;
 
 	bool repetir_entrada = false;
+
+	bool passo_a_passo = false;
+
 	do{
 		repetir_entrada = false;
-    	cout << "insira o numero que vai ser convertido: ";
-    	cin >> num_x;
+		cout << "deseja ativar o modo passo a passo?[s/n] ";
 
-		bool repetir_base = false;
+		cin >> temp;
 
+		if(temp == "s" || temp == "S"){
+			passo_a_passo = true;
+		}else if(temp == "n" || temp == "N"){
+			passo_a_passo = false;
+		}else{
+			cout << "Resposta invalida, insira 's' para sim ou 'n' para nao\n";
+			repetir_entrada = true;
+		}
 
-		do{
-			cout << "insira a base do numero que vai ser convertido: ";
-			repetir_base = false;
-			cin >> temp;
-			if(base_valida(temp)){
-				base_x = texto_para_numero(temp);
-				if(!numero_valido(&num_x,base_x, true)){
-					cout << "A base " << base_x << " não é compativel com o numero " << num_x << "\n";
-					repetir_entrada = true;
-				}
-			}else{
-				repetir_base = true;
-			}
-
-		}while(repetir_base);
 
 	}while(repetir_entrada);
+
+
+
 	do{
-		cout << "insira a base para qual o numero deve ser convertido: ";
-		cin >> temp;
 		repetir_entrada = false;
+		cout << "insira o numero que vai ser convertido: ";
+		cin >> num_x;
+		if(!numero_valido(&num_x, 36, true)){
+			repetir_entrada = true;
+			cout << "Entrada invalida, o numero contem caracteres especiais\n";
+		}
+
+	}while(repetir_entrada);
+
+	do{
+		repetir_entrada = false;
+		cout << "insira a base do numero que vai ser convertido: ";
+		cin >> temp;
 		if(base_valida(temp)){
-			base_y = texto_para_numero(temp);
-			if(base_y == base_x){
-				cout << "Entrada invalida, o numero inserido já está na base " << base_y << ".";
+			base_x = texto_para_numero(temp);
+			if(!numero_valido(&num_x, base_x, true)){
 				repetir_entrada = true;
+				cout << "Entrada invalida, a base " << base_x << "não é compativel com o numero " << num_x << "\n";
 			}
 		}else{
 			repetir_entrada = true;
 		}
+
 	}while(repetir_entrada);
 
-   	if (base_x == 10) {
-   	    num_y = de_10_para_base_y(num_x, base_y);
-   	} else if (base_y == 10) {
-   	    num_y = de_base_x_para_10(num_x, base_x);
-   	} else {
-   	    descobre_potencia(base_x, base_y, potencia_bases);
-   	    if (potencia_bases[0] == potencia_bases[2]) {
-   	        num_y = entre_bases_potencia(num_x, base_x, base_y, potencia_bases);
-   		} else {
-   	        num_y = de_base_x_para_10(num_x, base_x);
-   	        num_y = de_10_para_base_y(num_y, base_y);
-   	    }
-    }
+	do{
+		repetir_entrada = false;
+		cout << "insira a base para qual o numero deve ser convertido: ";
+		cin >> temp;
+		if(base_valida(temp)){
+			base_y = texto_para_numero(temp);
+			if(base_x == base_y){
+				repetir_entrada = true;
+				cout << "Entrada invalida, o numero inserido já está na base " << base_y << ".";
+			}
+		}else{
+			repetir_entrada = true;
+		}
+
+	}while(repetir_entrada);
+
+	num_y = converter(num_x, base_x, base_y, passo_a_passo);
+
     cout << "O numero " << num_x << " na base " << base_y << " é " << num_y << endl;
 
 
-}
 
-
-int main() {
-
-	bool repetir = false;
-
-	do{
-		bool entrada_invalida = false;
-		string entrada;
-		verificar_e_converter();
-		cout << "deseja converter outro numero?(s/n)\n";
-		do{
-			entrada_invalida = false;
-			cin >> entrada;
-			if(entrada == "s"){repetir = true;}else
-			if(entrada == "n"){repetir = false;}else
-			{cout << "entrada invalida\n"; entrada_invalida = true;}
-		}while(entrada_invalida);
-
-	}while(repetir);
-
-    return 0;
 }
