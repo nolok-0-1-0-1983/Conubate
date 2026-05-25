@@ -3,10 +3,10 @@
 
 void descobre_potencia(short num_a, short num_b, short potencia_bases[4]);
 
-std::string agrupa_digitos(std::string num_x, short base_x, short expoente_agrupa);
+std::string agrupa_digitos(std::string num_x, short base_x, short expoente_agrupa, bool passo_a_passo);
 
-std::string separa_digitos(std::string num_x, short base_y, short expoente_separa);
+std::string separa_digitos(std::string num_x, short base_y, short expoente_separa, bool passo_a_passo);
 
-std::string entre_bases_potencia(std::string num_x, short base_x, short base_y, short potencia_bases[4]);
+std::string entre_bases_potencia(std::string num_x, short base_x, short base_y, short potencia_bases[4], bool passo_a_passo);
 
 #endif
