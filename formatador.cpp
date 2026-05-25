@@ -1,7 +1,5 @@
 
 #include <iostream>
-//^ esse arquivo não usa <iostream diretamente, no entanto como planejamos
-//adicionar a função passo a passo ele vai provavelmente ser necessario
 
 #include "formatador.h"
 
@@ -10,7 +8,6 @@ using namespace std;
 
 short de_caractere_para_num(char c) {
     string definicoes = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    // ^ nesta fita, o índice de um caractere é igual ao seu valor em decimal
     short t_definicoes = definicoes.size();
     short n = 0;
     short i_definicoes_comeca = 0;
@@ -38,7 +35,6 @@ short de_caractere_para_num(char c) {
 
 char de_num_para_caractere(short n) {
     string definicoes = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    // ^ nesta fita, o valor de um caractere em decimal é igual ao seu índice
     short t_definicoes = definicoes.size();
     char c = '\0';
 
@@ -50,12 +46,28 @@ char de_num_para_caractere(short n) {
 }
 
 char descobre_sinal(string *num) {
-    char primeiro_caractere = (*num)[0]; // não é casting, é dereferência do ponteiro de num!
+    string num_copia = *num;
+    // short t_num_copia = num_copia.size();
+    char primeiro_caractere = num_copia[0];
     char sinal;
 
     if ((primeiro_caractere == '+') || (primeiro_caractere == '-')) {
         sinal = primeiro_caractere;
-        (*num)[0] = '\0';
+        
+        num_copia.erase(num_copia.begin());
+        
+        /* num_copia[0] = '\0';
+
+        for (short i_num_copia = 0; i_num_copia < t_num_copia; i_num_copia++) {
+            if (i_num_copia < (t_num_copia - 1)) {
+                num_copia[i_num_copia] = num_copia[i_num_copia + 1];
+            } else { // i_num_copia == (t_num_copia - 1)
+                num_copia[i_num_copia] = '\0';
+            }
+        } */
+        // ^ maneira alternativa
+
+        *num = num_copia;
     } else {
         sinal = '\0';
     }
