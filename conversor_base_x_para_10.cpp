@@ -5,15 +5,30 @@
 
 using namespace std;
 
-
-string fracionario_de_base_x_para_10(string num_x, short base_x) {
+string fracionario_de_base_x_para_10(string num_x, short base_x, bool passo_a_passo) {
     short t_num_x = num_x.size();
     string num_y;
     double num_y_fun = 0;
     short resto;
     
+    if (passo_a_passo == true) {
+        cout << endl
+            << "NOTE QUE" << endl
+            << "(I) agora, os dígitos serão lidos de trás para frente;" << endl
+            << "(II) em questão de se tratar de um somatório posicional," << endl
+            << "    será preciso dividir em todas as vezes que for feita a soma," 
+            << " até na última vez (" << base_x << " elevado a -1 é diferente de 1)." << endl;
+    }
+
     for (int i_num_x = (t_num_x - 1); i_num_x >= 0; i_num_x--) {
         num_y_fun += (de_caractere_para_num(num_x[i_num_x]));
+        if (passo_a_passo == true) {
+            cout << endl
+                << "O dígito (trás pra frente) em num_x é " << num_x[i_num_x] << endl
+                << "somando com o que havia antes, fica " <<  num_y_fun << endl
+                << "divindo por " << base_x << " (" << t_num_x - i_num_x << "ª vez),"
+                << " fica " << num_y_fun / base_x << "." << endl;
+        }
         num_y_fun /= base_x;
     }
 
@@ -22,10 +37,16 @@ string fracionario_de_base_x_para_10(string num_x, short base_x) {
         num_y += de_num_para_caractere(resto);
     }
 
+    if (passo_a_passo == true) {
+        cout << endl
+            << "Assim, desconsiderando o 0 e o ponto,"
+            << " a parte fracionária de num_y é " << num_y << "." << endl;
+    }
+
     return num_y;
 }
 
-string inteiro_de_base_x_para_10(string num_x, short base_x) {
+string inteiro_de_base_x_para_10(string num_x, short base_x, bool passo_a_passo) {
     short t_num_x = num_x.size();
     string num_y;
     int num_y_fun = 0;
@@ -34,6 +55,19 @@ string inteiro_de_base_x_para_10(string num_x, short base_x) {
     for (short i_num_x = 0; i_num_x < t_num_x; i_num_x++) {
         num_y_fun *= base_x;
         num_y_fun += de_caractere_para_num(num_x[i_num_x]);
+        if (passo_a_passo == true) {
+            cout << endl
+                << "O dígito em num_x é " << num_x[i_num_x] << endl
+                << "somando com o que havia antes, fica " <<  num_y_fun << endl;
+            if (i_num_x < t_num_x - 1) {
+                cout << "multiplicando por " << base_x << " (" << i_num_x + 1 << "ª vez),"
+                    << " fica " << num_y_fun * base_x << "." << endl;
+            } else { // i_num_x == t_num_x - 1
+                cout << base_x << " elevado a 0 é igual a 1, portanto,"
+                    << " não precisamos multiplicar por " << base_x 
+                    << " uma " << i_num_x + 1 << "ª vez." << endl;
+            }
+        }
     }
 
     if (num_y_fun == 0) {
@@ -45,10 +79,15 @@ string inteiro_de_base_x_para_10(string num_x, short base_x) {
         }
     }
 
+    if (passo_a_passo == true) {
+        cout << endl
+            << "Assim, a parte inteira de num_y é " << num_y << "." << endl;
+    }
+
     return num_y;
 }
 
-string de_base_x_para_10(string num_x, short base_x) {
+string de_base_x_para_10(string num_x, short base_x, bool passo_a_passo) {
 	string parte_inteira_x;
 	string parte_fracionaria_x;
     short t_parte_fracionaria_x;
@@ -56,21 +95,77 @@ string de_base_x_para_10(string num_x, short base_x) {
     char sinal;
     string num_y;
 
-    sinal = descobre_sinal(&num_x);    
+    sinal = descobre_sinal(&num_x);
+    if (passo_a_passo == true) {
+        switch (sinal) {
+            case '+':
+            case '-':
+                cout << endl
+                    << "Tirando o sinal (" << sinal << "), num_x é:" << endl
+                    << num_x << endl;
+                break;
+            default:
+                cout << endl 
+                    << "num_x está sem sinal." << endl;
+        }
+    }    
 
 	separar_fracionario(num_x, &parte_inteira_x, &parte_fracionaria_x);
     t_parte_fracionaria_x = parte_fracionaria_x.size();
 
-    num_y = inteiro_de_base_x_para_10(parte_inteira_x, base_x);
+    if (passo_a_passo == true) {
+        cout << endl 
+            << "Tratando a parte inteira (" << parte_inteira_x 
+            << ") via somatório posicional dos dígitos, considerando base " << base_x << ":" << endl;
+    }
+    num_y = inteiro_de_base_x_para_10(parte_inteira_x, base_x, passo_a_passo);
 
 	if (t_parte_fracionaria_x > 0) {
-        cout << "O seu número é decimal. Entre quantas casas você quer para num_y:" << endl
+        if (passo_a_passo == true) {
+            cout << endl; // questão de espaçamento
+        }
+
+        cout << "num_x é decimal. Entre quantas casas você quer para num_y:" << endl
             << "qtd_casas_decimais = ";
         cin >> qtd_casas_decimais;
-		num_y += '.' + fracionario_de_base_x_para_10(parte_fracionaria_x, base_x);
-	}
 
-    num_y = sinal + num_y;
+        if (passo_a_passo == true) {
+            cout << endl
+                << "Tratando a parte fracionária (" << parte_fracionaria_x 
+                << ") via somatório posicional dos dígitos, considerando base " << base_x << ":" << endl;
+        }
+		num_y += '.' + fracionario_de_base_x_para_10(parte_fracionaria_x, base_x, passo_a_passo);
+        if (passo_a_passo == true) {
+            cout << endl
+                << "Juntando as duas partes, o num_y, sem sinal, é:" << endl
+                << num_y << endl;
+        }
+	} else if (passo_a_passo == true) {
+        cout << endl 
+            << "A parte fracionária do num_x (" << num_x << ") é nula. Assim, num_y, sem sinal, é" << endl
+            << num_y << endl;
+    }
 
+    if (sinal != '\0') {
+        num_y = sinal + num_y;
+    }    
+    if (passo_a_passo == true) {
+        switch (sinal) {
+            case '+':
+            case '-':
+                cout << endl
+                    << "Colocando o sinal (" << sinal << ") em num_y, fica: " << endl
+                    << num_y << endl;
+                break;
+            default:
+                cout << endl
+                    << "Não há sinal a ser colocado." << endl;
+        }
+
+        cout << endl
+            << "Portanto, ao todo, num_y é: " << endl
+            << num_y << endl;
+    }
+    
 	return num_y;
 }
