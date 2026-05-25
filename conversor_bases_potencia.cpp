@@ -39,42 +39,69 @@ void descobre_potencia(short num_a, short num_b, short potencia_bases[4]) {
     potencia_bases[3] = expoente_b;
 }
 
-string agrupa_digitos(string num_x, short base_x, short expoente_agrupa) {
+string agrupa_digitos(string num_x, short base_x, short expoente_agrupa, bool passo_a_passo) {
     short t_num_x;
     string num_y;
     string trecho_x;
     short t_trecho_x = expoente_agrupa;
-    int trecho_x_fun = 0;
+    short trecho_x_fun = 0;
+    short num_trecho = 1;
     
-    // cout << expoente_agrupa << endl;
+    if (passo_a_passo == true) {
+        cout << endl
+            << "Ajeitando num_x para que seja possível dividí-lo"
+            << " em trechos de " << expoente_agrupa << " dígitos cada." << endl
+            << endl;
+    }
     for (t_num_x = num_x.size(); (t_num_x % expoente_agrupa) != 0; t_num_x = num_x.size()) {
-        // cout << num_x << endl;
+        if (passo_a_passo == true) {
+            cout << num_x << endl;
+        }
         num_x = "0" + num_x;
     }
-    // cout << num_x << endl;
-
-    for (int i_num_x = 0; i_num_x < t_num_x; i_num_x += expoente_agrupa) {
-        for (int i_trecho_x = i_num_x; i_trecho_x < (i_num_x + expoente_agrupa); i_trecho_x++) {
+    if (passo_a_passo == true) {
+        cout << num_x << endl
+            << endl
+            << "É possível dividir num_x. Converte-se os trechos:" << endl;
+    }
+    
+    for (short i_num_x = 0; i_num_x < t_num_x; i_num_x += expoente_agrupa) {
+        for (short i_trecho_x = i_num_x; i_trecho_x < (i_num_x + expoente_agrupa); i_trecho_x++) {
             trecho_x += num_x[i_trecho_x];
         }
-        // cout << trecho_x << endl;
+        if (passo_a_passo == true) {
+            cout << endl
+                << "O " << num_trecho << "º trecho de num_x é " << trecho_x << endl;
+        }
 
-        for (int i_trecho_x = 0; i_trecho_x < t_trecho_x; i_trecho_x++) {
+        for (short i_trecho_x = 0; i_trecho_x < t_trecho_x; i_trecho_x++) {
             trecho_x_fun *= base_x;
             trecho_x_fun += de_caractere_para_num(trecho_x[i_trecho_x]);
         }
-        // cout << trecho_x_fun << endl;
+        if (passo_a_passo == true) {
+            cout << "na base " << base_x  
+                << ", o trecho fica " << de_num_para_caractere(trecho_x_fun) << endl;
+        }
+
         num_y += de_num_para_caractere(trecho_x_fun);
-        // cout << num_y << endl;
+        if (passo_a_passo == true) {
+            cout << "juntando com o que havia antes, o todo resulta em " << num_y << "." << endl;
+        }
 
         trecho_x = "\0";
         trecho_x_fun = 0;
+        num_trecho++;
+    }
+
+    if (passo_a_passo == true) {
+        cout << endl
+            << "Assim, a parte inteira de num_y é " << num_y << "." << endl;
     }
 
     return num_y;
 }
 
-string separa_digitos(string num_x, short base_y, short expoente_separa) {
+string separa_digitos(string num_x, short base_y, short expoente_separa, bool passo_a_passo) {
     short t_num_x = num_x.size();
     string num_y;
     short digito_x;
@@ -84,37 +111,65 @@ string separa_digitos(string num_x, short base_y, short expoente_separa) {
 
     if (num_x == "0") {
         num_y = "0";
+        if (passo_a_passo == true) {
+            cout << endl
+                << "A parte inteira de num_x é nula," << endl
+                << "logo, a parte inteira de num_y também é nula." << endl;
+        }
     } else {
         for (short i_num_x = 0; i_num_x < t_num_x; i_num_x++) {
             digito_x = de_caractere_para_num(num_x[i_num_x]);
-            // cout << "o dígito no número original é: " << digito_x << endl;
+            if (passo_a_passo == true) {
+                cout << endl
+                    << "O "<< i_num_x + 1 << "º dígito em num_x é " << digito_x << endl;
+            } 
 
             for (/*digito_x*/; digito_x != 0; digito_x /= base_y) {
-                // cout << "digito_x = " << digito_x << endl;
                 resto = digito_x % base_y;
                 trecho_y = de_num_para_caractere(resto) + trecho_y;
-                // cout << "trecho_y = " << trecho_y << endl;
+            }
+            if (passo_a_passo == true) {
+                cout << "em " << base_y << ", ele fica " << trecho_y << endl;
             }
 
             t_trecho_y = trecho_y.size();
 
             if ((i_num_x != 0) && ((t_trecho_y % expoente_separa) != 0)) {
+                if (passo_a_passo == true) {
+                    cout << "como este não é o 1º trecho" 
+                        << " e ele não possui " << expoente_separa << " dígitos,"
+                        << " precisa-se completar com 0's:" << endl;
+                }
                 for (/*t_trecho_y*/; (t_trecho_y % expoente_separa) != 0; t_trecho_y = trecho_y.size()) {
+                    if (passo_a_passo == true) {
+                        cout << trecho_y << endl;
+                    }
                     trecho_y = "0" + trecho_y;
+                }
+                if (passo_a_passo == true) {
+                    cout << trecho_y << endl;
                 }
             }
 
             num_y += trecho_y;
-            // cout << num_y << endl;
+            if (passo_a_passo == true) {
+                cout << "juntando com o que havia antes, o todo fica " << num_y << "." << endl;
+            }
 
             trecho_y = "\0";
         }
     }
 
+    if (passo_a_passo == true) {
+        cout << endl
+            << "Assim, a parte inteira de num_y é " << num_y << "." << endl;
+    }
+    
+
     return num_y;
 }
 
-string entre_bases_potencia(string num_x, short base_x, short base_y, short potencia_bases[4]) {
+string entre_bases_potencia(string num_x, short base_x, short base_y, short potencia_bases[4] , bool passo_a_passo) {
     string parte_inteira_x;
 	string parte_fracionaria_x;
     short t_parte_fracionaria_x;
@@ -122,33 +177,108 @@ string entre_bases_potencia(string num_x, short base_x, short base_y, short pote
     char sinal;
     string num_y;
 
-    sinal = descobre_sinal(&num_x);  
+    sinal = descobre_sinal(&num_x);
+    if (passo_a_passo == true) {
+        switch (sinal) {
+            case '+':
+            case '-':
+                cout << endl
+                    << "Tirando o sinal (" << sinal << "), num_x é:" << endl
+                    << num_x << endl;
+                break;
+            default:
+                cout << endl 
+                    << "num_x está sem sinal." << endl;
+        }
+    }  
 
 	separar_fracionario(num_x, &parte_inteira_x, &parte_fracionaria_x);
     t_parte_fracionaria_x = parte_fracionaria_x.size();
 
     if (potencia_bases[1] == 1) {
-        // agrupa dígitos
-        num_y += agrupa_digitos(parte_inteira_x, base_x, potencia_bases[3]);
+        if (passo_a_passo == true) {
+            cout << endl
+                << base_x << " elevado a " << potencia_bases[3]
+                << " é igual a " << base_y << "." << endl
+                << "Tratando parte inteira (" << parte_inteira_x << ")"
+                << " via agrupamento de dígitos em grupos de " << potencia_bases[3] << ":" << endl;
+        }
+        num_y += agrupa_digitos(parte_inteira_x, base_x, potencia_bases[3], passo_a_passo);
     } else if (potencia_bases[3] == 1) {
-        // separa dígitos
-        num_y += separa_digitos(parte_inteira_x, base_y, potencia_bases[1]);
+        if (passo_a_passo == true) {
+            cout << endl
+                << base_y << " elevado a " << potencia_bases[1]
+                << " é igual a " << base_x << "." << endl
+                << "Tratando parte inteira (" << parte_inteira_x << ")"
+                << " via separação de dígitos em grupos de " << potencia_bases[1] << ":" << endl;
+        }
+        num_y += separa_digitos(parte_inteira_x, base_y, potencia_bases[1], passo_a_passo);
     } else {
-        // separa dígitos (vai para base_pot^1),
-        num_y += separa_digitos(parte_inteira_x, potencia_bases[0], potencia_bases[1]);
-        // depois agrupa dígitos (vai para base_pot^expoente_b)
-        num_y = agrupa_digitos(num_y, potencia_bases[0], potencia_bases[3]);
+        if (passo_a_passo == true) {
+            cout << endl
+                << potencia_bases[0] << " elevado a " << potencia_bases[1]
+                << " é igual a " << base_x << "," << endl
+                << "e " << potencia_bases[2] << " elevado a " << potencia_bases[3]
+                << " é igual a " << base_y << "." << endl
+                << "Assim, primeiro se transporta a parte inteira para base " << potencia_bases[0] << "." << endl
+                << endl
+                << "Tratando parte inteira (" << parte_inteira_x << ")"
+                << " via separação de dígitos em grupos de " << potencia_bases[1] << ":" << endl;
+        }
+        num_y += separa_digitos(parte_inteira_x, potencia_bases[0], potencia_bases[1], passo_a_passo);
+
+        if (passo_a_passo == true) {
+            cout << endl
+                << "Agora, este novo valor é tratado"
+                << " como a entrada para a transformação para base " << base_y << "." << endl
+                << endl
+                <<  "Tratando parte inteira (" << parte_inteira_x << ")"
+                << " via agrupamento de dígitos em grupos de " << potencia_bases[3] << ":" << endl;
+        }
+        num_y = agrupa_digitos(num_y, potencia_bases[0], potencia_bases[3], passo_a_passo);
     }
 
     if (t_parte_fracionaria_x > 0) {
-        cout << "O seu número é decimal. Entre quantas casas você quer para num_y:" << endl
+        if (passo_a_passo == true) {
+            cout << endl; // questão de espaçamento
+        }
+
+        cout << "num_x é decimal. Entre quantas casas você quer para num_y:" << endl
             << "qtd_casas_decimais = ";
         cin >> qtd_casas_decimais;
-		num_y += '.' + fracionario_de_10_para_base_y(fracionario_de_base_x_para_10(parte_fracionaria_x, base_x),base_y,qtd_casas_decimais);
-		
-	}
 
-    num_y = sinal + num_y;
+		num_y += '.' + fracionario_de_base_x_para_10(parte_fracionaria_x, base_x, passo_a_passo);
+	    if (passo_a_passo == true) {
+            cout << endl
+                << "Juntando as duas partes, o num_y, sem sinal, é:" << endl
+                << num_y << endl;
+        }
+	} else if (passo_a_passo == true) {
+        cout << endl 
+            << "A parte fracionária do num_x (" << num_x << ") é nula. Assim, num_y, sem sinal, é" << endl
+            << num_y << endl;
+    }
+
+    if (sinal != '\0') {
+        num_y = sinal + num_y;
+    }    
+    if (passo_a_passo == true) {
+        switch (sinal) {
+            case '+':
+            case '-':
+                cout << endl
+                    << "Colocando o sinal (" << sinal << ") em num_y, fica: " << endl
+                    << num_y << endl;
+                break;
+            default:
+                cout << endl
+                    << "Não há sinal a ser colocado." << endl;
+        }
+
+        cout << endl
+            << "Portanto, ao todo, num_y é: " << endl
+            << num_y << endl;
+    }
 
     return num_y;
 }
