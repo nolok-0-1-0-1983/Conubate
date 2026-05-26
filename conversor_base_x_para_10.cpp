@@ -49,7 +49,7 @@ string fracionario_de_base_x_para_10(string num_x, short base_x, bool passo_a_pa
 string inteiro_de_base_x_para_10(string num_x, short base_x, bool passo_a_passo) {
     short t_num_x = num_x.size();
     string num_y;
-    int num_y_fun = 0;
+    long long num_y_fun = 0;
     short resto;
     
     for (short i_num_x = 0; i_num_x < t_num_x; i_num_x++) {
