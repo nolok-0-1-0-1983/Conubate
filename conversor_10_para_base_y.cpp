@@ -40,7 +40,7 @@ string fracionario_de_10_para_base_y(string num_x, short base_y, short qtd_casas
 string inteiro_de_10_para_base_y(string num_x, short base_y, bool passo_a_passo) {
     short t_num_x = num_x.size();
     string num_y;
-    int num_x_fun = 0;
+    long long num_x_fun = 0;
     short resto;
 
     for (short i_num_x = 0; i_num_x < t_num_x; i_num_x++) {
