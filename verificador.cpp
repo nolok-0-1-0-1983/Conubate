@@ -13,9 +13,9 @@ using namespace std;
 bool numero_valido(string *num, int base, bool permitir_fracionario){
 	string definicoes = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	bool achou = true;
-	for(int i = 0; i < (int)num->size() && achou; i++){
+	for(short i = 0; i < (int)num->size() && achou; i++){
 		achou = false;
-		for(int j = 0; j < base && !achou; j++){
+		for(short j = 0; j < base && !achou; j++){
 			if((*num)[i] > 96){(*num)[i]-=32;} //lida com letras minusculas
 			if((*num)[i] == definicoes[j] || (permitir_fracionario && (*num)[i] == '.') || (i == 0 && ((*num)[i] == '+') || ((*num)[i] == '-'))){achou = true;}
 		}
