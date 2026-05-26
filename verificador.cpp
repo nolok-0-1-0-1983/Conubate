@@ -17,7 +17,7 @@ bool numero_valido(string *num, int base, bool permitir_fracionario){
 		achou = false;
 		for(int j = 0; j < base && !achou; j++){
 			if((*num)[i] > 96){(*num)[i]-=32;} //lida com letras minusculas
-			if((*num)[i] == definicoes[j] || (permitir_fracionario && (*num)[i] == '.')){achou = true;}
+			if((*num)[i] == definicoes[j] || (permitir_fracionario && (*num)[i] == '.') || (i == 0 && ((*num)[i] == '+') || ((*num)[i] == '-'))){achou = true;}
 		}
 	}
 	return achou;
@@ -157,3 +157,25 @@ void verificar_e_converter(){
 
 
 }
+/*
+int main() {
+
+	bool repetir = false;
+	do{
+		bool entrada_invalida = false;
+		string entrada;
+		verificar_e_converter();
+		cout << "deseja converter outro numero?(s/n)\n";
+		do{
+			entrada_invalida = false;
+			cin >> entrada;
+			if(entrada == "s"){repetir = true;}else
+			if(entrada == "n"){repetir = false;}else
+			{cout << "entrada invalida\n"; entrada_invalida = true;}
+		}while(entrada_invalida);
+
+	}while(repetir);
+
+    return 0;
+}
+*/
