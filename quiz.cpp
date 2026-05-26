@@ -45,10 +45,10 @@ int gerar_conversao(int dificuldade){
 	}else if(dificuldade == 3){
 		base_x = rand() % 3;
 		if(base_x == 0){
-			base_y = 2;
-		}else if(base_y == 1){
+			base_x = 2;
+		}else if(base_x == 1){
 			base_x = 8;
-		}else if(base_y == 2){
+		}else if(base_x == 2){
 			base_x = 16;
 		}
 		base_y = rand() % 3;
@@ -102,7 +102,7 @@ int gerar_conversao(int dificuldade){
 		return dificuldade * dificuldade * 4;
 
 	}else{
-		cout << "que pena, voce errou... A resposta correta é " << convertido;
+		cout << "que pena, voce errou... A resposta correta é " << convertido << "\n";
 	}
 	return 0;
 
