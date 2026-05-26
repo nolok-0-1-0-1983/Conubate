@@ -1,6 +1,6 @@
 #include <fstream>
 #include <iostream>
-
+#include <string>
 
 #include "verificador.h"
 #include "leitor_csv.h"
@@ -25,6 +25,7 @@ void ler_e_converter_csv(ifstream *arquivo){
 		getline(*arquivo, temp, ';');
 
 		if(temp == ""){erro = true;}
+		while(temp[0] == ' '){temp.erase(0,1);}
 
 
 		if(numero_valido(&temp, 36, true)){
@@ -36,6 +37,7 @@ void ler_e_converter_csv(ifstream *arquivo){
 		}
 
 		getline(*arquivo, temp, ';');
+		while(temp[0] == ' '){temp.erase(0,1);}
 		if(numero_valido(&temp, 10, false) && !erro){
 			base_x = texto_para_numero(temp);
 			if(base_x < 2 || base_x > 36){
@@ -55,6 +57,7 @@ void ler_e_converter_csv(ifstream *arquivo){
 		}
 
 		getline(*arquivo, temp);
+		while(temp[0] == ' '){temp.erase(0,1);}
 		if(numero_valido(&temp, 10, false) && !erro){
 			base_y = texto_para_numero(temp);
 			if(base_y < 2 || base_y > 36){
