@@ -12,7 +12,7 @@ using namespace std;
 string gerar_numero_aleatorio(int tamanho, int base){
 	srand(time(0));
 	string numero = "";
-	for(int i = 0; i < tamanho; i++){
+	for(short i = 0; i < tamanho; i++){
 		numero += de_num_para_caractere(rand() % base);
 	}
 
