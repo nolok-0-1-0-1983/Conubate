@@ -17,7 +17,7 @@ bool numero_valido(string *num, int base, bool permitir_fracionario){
 		achou = false;
 		for(short j = 0; j < base && !achou; j++){
 			if((*num)[i] > 96){(*num)[i]-=32;} //lida com letras minusculas
-			if((*num)[i] == definicoes[j] || (permitir_fracionario && (*num)[i] == '.') || (i == 0 && ((*num)[i] == '+') || ((*num)[i] == '-'))){achou = true;}
+			if((*num)[i] == definicoes[j] || (permitir_fracionario && (*num)[i] == '.') || (i == 0 && ((*num)[i] == '+' || (*num)[i] == '-'))){achou = true;}
 		}
 	}
 	return achou;
