@@ -33,7 +33,7 @@ void ler_e_converter_csv(ifstream *arquivo){
 			linha_saida += (num_x + ";");
 		}else{
 			erro = true;
-			saida << "ERRO: numero a ser convertido possui caracteres especiais\n";
+			saida << "ERRO: número a ser convertido possui caracteres especiais.\n";
 		}
 
 		getline(*arquivo, temp, ';');
@@ -42,18 +42,18 @@ void ler_e_converter_csv(ifstream *arquivo){
 			base_x = texto_para_numero(temp);
 			if(base_x < 2 || base_x > 36){
 				erro = true;
-				saida << "ERRO: a base deve ser um numero inteiro de 2 a 36\n";
+				saida << "ERRO: a base deve ser um número inteiro de 2 a 36.\n";
 			}
 			if(!erro && !numero_valido(&num_x, base_x, true)){
 				erro = true;
-				saida << "ERRO: a base não é valida para o numero inserido\n";
+				saida << "ERRO: a base não é válida para o número inserido.\n";
 			}
 			if(!erro){
 				linha_saida += (temp + ";");
 			}
 		}else if(!erro){
 			erro = true;
-			saida << "ERRO: a base do numero a ser convertido possui caracteres especiais\n";
+			saida << "ERRO: a base do número a ser convertido possui caracteres especiais.\n";
 		}
 
 		getline(*arquivo, temp);
@@ -62,18 +62,18 @@ void ler_e_converter_csv(ifstream *arquivo){
 			base_y = texto_para_numero(temp);
 			if(base_y < 2 || base_y > 36){
 				erro = true;
-				saida << "ERRO: a base na qual o numero vai ser convertido deve ser um numero inteiro de 2 a 36\n";
+				saida << "ERRO: a base na qual o número vai ser convertido deve ser um numero inteiro de 2 a 36.\n";
 			}
 			if(!erro && base_y == base_x){
 				erro = true;
-				saida << "ERRO a base do numero é igual a base a ser convertida\n";
+				saida << "ERRO: a base do número é igual a base a ser convertida.\n";
 			}
 			if(!erro){
 				linha_saida += (temp + ";");
 			}
 		}else if(!erro){
 			erro = true;
-			saida << "ERRO: a base na qual o numero vai ser convertido possui caracteres especiais\n";
+			saida << "ERRO: a base na qual o número vai ser convertido possui caracteres especiais.\n";
 		}
 
 		if(!erro){

@@ -12,10 +12,10 @@ void calcular_maximos() {
     char maior_digito;
     string maximo_base_10;
 
-    cout << "k_digitos = ";
+    cout << "Insira quantos dígitos os valores máximos possuem: ";
     cin >> k_digitos;
 
-    cout << "Com k_digitos = " << k_digitos << " digitos,"
+    cout << "Com " << k_digitos << " digitos,"
         << " pode-se representar até (incluso):" << endl;
     for (short base_x = 2; base_x <= 36; base_x++) {
         maximo_base_x.clear();

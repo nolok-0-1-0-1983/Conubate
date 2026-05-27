@@ -41,11 +41,11 @@ bool base_valida(string base){
 	if(numero_valido(&base, 10, false)){
 		int base_int = texto_para_numero(base);
 		if(base_int < 2 || base_int > 36){
-			cout << "Entrada invalida, a base deve estar entre 2 e 36\n";
+			cout << "Entrada inválida, a base deve estar entre 2 e 36.\n";
 			invalido = true;
 		}
 	}else{
-		cout << "Entrada invalida, a base deve ser um numero inteiro na base 10\n";
+		cout << "Entrada inválida, a base deve ser um número inteiro na base 10.\n";
 		invalido = true;
 	}
 	return !invalido;
@@ -89,7 +89,7 @@ void verificar_e_converter(){
 
 	do{
 		repetir_entrada = false;
-		cout << "deseja ativar o modo passo a passo?[s/n] ";
+		cout << "Deseja ativar o modo passo a passo? [s/n] ";
 
 		cin >> temp;
 
@@ -98,7 +98,7 @@ void verificar_e_converter(){
 		}else if(temp == "n" || temp == "N"){
 			passo_a_passo = false;
 		}else{
-			cout << "Resposta invalida, insira 's' para sim ou 'n' para nao\n";
+			cout << "Resposta inválida, insira 's' para sim ou 'n' para não.\n";
 			repetir_entrada = true;
 		}
 
@@ -109,24 +109,24 @@ void verificar_e_converter(){
 
 	do{
 		repetir_entrada = false;
-		cout << "insira o numero que vai ser convertido: ";
+		cout << "Insira o número que vai ser convertido: ";
 		cin >> num_x;
 		if(!numero_valido(&num_x, 36, true)){
 			repetir_entrada = true;
-			cout << "Entrada invalida, o numero contem caracteres especiais\n";
+			cout << "Entrada inválida, o número contém caracteres especiais.\n";
 		}
 
 	}while(repetir_entrada);
 
 	do{
 		repetir_entrada = false;
-		cout << "insira a base do numero que vai ser convertido: ";
+		cout << "Insira a base do número que vai ser convertido: ";
 		cin >> temp;
 		if(base_valida(temp)){
 			base_x = texto_para_numero(temp);
 			if(!numero_valido(&num_x, base_x, true)){
 				repetir_entrada = true;
-				cout << "Entrada invalida, a base " << base_x << "não é compativel com o numero " << num_x << "\n";
+				cout << "Entrada inválida, a base " << base_x << "não é compativel com o número " << num_x << ".\n";
 			}
 		}else{
 			repetir_entrada = true;
@@ -136,13 +136,13 @@ void verificar_e_converter(){
 
 	do{
 		repetir_entrada = false;
-		cout << "insira a base para qual o numero deve ser convertido: ";
+		cout << "Insira a base para qual o número deve ser convertido: ";
 		cin >> temp;
 		if(base_valida(temp)){
 			base_y = texto_para_numero(temp);
 			if(base_x == base_y){
 				repetir_entrada = true;
-				cout << "Entrada invalida, o numero inserido já está na base " << base_y << ".";
+				cout << "Entrada inválida, o número inserido já está na base " << base_y << "./n";
 			}
 		}else{
 			repetir_entrada = true;
@@ -152,7 +152,7 @@ void verificar_e_converter(){
 
 	num_y = converter(num_x, base_x, base_y, passo_a_passo);
 
-    cout << "O numero " << num_x << " na base " << base_y << " é " << num_y << endl;
+    cout << "O número " << num_x << " na base " << base_y << " é " << num_y << endl;
 
 
 

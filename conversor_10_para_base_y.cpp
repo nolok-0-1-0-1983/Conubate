@@ -31,7 +31,7 @@ string fracionario_de_10_para_base_y(string num_x, short base_y, short qtd_casas
 
     if (passo_a_passo == true) {
         cout << endl
-            << "Assim, a parte fracionária de num_y é " << num_y << "." << endl;
+            << "Assim, a parte fracionária do número resultante é " << num_y << "." << endl;
     }
 
 	return num_y;
@@ -51,8 +51,8 @@ string inteiro_de_10_para_base_y(string num_x, short base_y, bool passo_a_passo)
 		num_y = "0";
         if (passo_a_passo == true) {
             cout << endl
-                << "A parte inteira de num_x é nula," << endl
-                << "logo, a parte inteira de num_y também é nula." << endl;
+                << "A parte inteira do número de entrada é nula," << endl
+                << "logo, a parte inteira do número de saída também é nula." << endl;
         }
 	} else {
         for (/*num_x_fun*/; num_x_fun != 0; num_x_fun /= base_y) {
@@ -69,7 +69,7 @@ string inteiro_de_10_para_base_y(string num_x, short base_y, bool passo_a_passo)
 
     if (passo_a_passo == true) {
         cout << endl
-            << "Assim, a parte inteira de num_y é " << num_y << "." << endl;
+            << "Assim, a parte inteira do número resultante é " << num_y << "." << endl;
     }
 
     return num_y;
@@ -89,12 +89,12 @@ string de_10_para_base_y(string num_x, short base_y, bool passo_a_passo) {
             case '+':
             case '-':
                 cout << endl
-                    << "Tirando o sinal (" << sinal << "), num_x é:" << endl
+                    << "Tirando o sinal (" << sinal << "), o número a ser convertido é:" << endl
                     << num_x << endl;
                 break;
             default:
                 cout << endl 
-                    << "num_x está sem sinal." << endl;
+                    << "O número a ser convertido está sem sinal." << endl;
         }
     }
 
@@ -112,8 +112,7 @@ string de_10_para_base_y(string num_x, short base_y, bool passo_a_passo) {
         if (passo_a_passo == true) {
             cout << endl; // questão de espaçamento
         }
-        cout << "num_x é decimal. Entre quantas casas você quer para num_y:" << endl
-            << "qtd_casas_decimais = ";
+        cout << num_x << " é decimal. Entre quantas casas você quer para a saída: ";
         cin >> qtd_casas_decimais;
 
         if (passo_a_passo == true) {
@@ -124,12 +123,13 @@ string de_10_para_base_y(string num_x, short base_y, bool passo_a_passo) {
 		num_y += '.' + fracionario_de_10_para_base_y(parte_fracionaria_x, base_y, qtd_casas_decimais, passo_a_passo);
         if (passo_a_passo == true) {
             cout << endl
-                << "Juntando as duas partes, o num_y, sem sinal, é:" << endl
+                << "Juntando as duas partes, o número convertido, sem sinal, é:" << endl
                 << num_y << endl;
         }
 	} else if (passo_a_passo == true) {
         cout << endl 
-            << "A parte fracionária do num_x (" << num_x << ") é nula. Assim, num_y, sem sinal, é" << endl
+            << "A parte fracionária do número original (" << num_x << ") é nula."
+            << " Assim, o seu equivalente na base " << base_y << ", sem sinal, é" << endl
             << num_y << endl;
     }
 
@@ -141,7 +141,7 @@ string de_10_para_base_y(string num_x, short base_y, bool passo_a_passo) {
             case '+':
             case '-':
                 cout << endl
-                    << "Colocando o sinal (" << sinal << ") em num_y, fica: " << endl
+                    << "Colocando o sinal (" << sinal << ") no número convertido, fica: " << endl
                     << num_y << endl;
                 break;
             default:
@@ -150,8 +150,8 @@ string de_10_para_base_y(string num_x, short base_y, bool passo_a_passo) {
         }
 
         cout << endl
-            << "Portanto, ao todo, num_y é: " << endl
-            << num_y << endl;
+            << "Portanto, ao todo, o resultado da conversão é: " << endl
+            << num_y << endl << endl;
     }
 
 	return num_y;

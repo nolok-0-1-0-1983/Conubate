@@ -89,7 +89,7 @@ int gerar_conversao(int dificuldade){
 
 	}
 
-	std::cout << "converta o numero " << num_x << " na base " << base_x << " para a base " << base_y << ":\n";
+	std::cout << "Converta o número " << num_x << " na base " << base_x << " para a base " << base_y << ":\n";
 
 	string resposta;
 
@@ -98,11 +98,11 @@ int gerar_conversao(int dificuldade){
 	string convertido = converter(num_x,base_x,base_y,false);
 
 	if(resposta == convertido){
-		cout << "parabens, voce acertou!";
+		cout << "Parabéns, você acertou!\n";
 		return dificuldade * dificuldade * 4;
 
 	}else{
-		cout << "que pena, voce errou... A resposta correta é " << convertido << "\n";
+		cout << "Que pena, você errou... A resposta correta é " << convertido << ".\n";
 	}
 	return 0;
 

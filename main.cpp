@@ -14,33 +14,33 @@ int main(){
 	bool repetir = true;
 	string resposta;
 	do{
-		cout << "1 - converter numero\n2 - ler arquivo csv\n3 - modo quiz\n4 - calculadora de maximos\n5 - sair\n";
+		cout << "\nConubate - Conversor Númerico Baseado em Texto\n1.0.0 --- 27/05/26\nPelos alunos de graduação do 1º período, Natan Uchôa e João Marcelo Firmino, sob a direção de Prof. Rafael Durelli\nUniversidade Federal de Lavras (UFLA), DCC\n1 - Converter número\n2 - Ler arquivo CSV\n3 - Modo quiz\n4 - Calculadora de máximos\n5 - Sair\n";
 		cin >> resposta;
 
 		if(resposta == "1"){
 			verificar_e_converter();
 
 		}else if(resposta == "2"){
-			cout << "insira o nome do arquivo\n";
+			cout << "Insira o nome do arquivo: ";
 			cin >> resposta;
 			ifstream entrada(resposta);
 			if(entrada.good()){
 				ler_e_converter_csv(&entrada);
-				cout << "arquivo 'saida.csv' foi gerado\n";
+				cout << "Arquivo 'saida.csv' foi gerado.\n";
 			}else{
-				cout << "O arquivo nao existe\n";
+				cout << "O arquivo não existe.\n";
 			}
 		}else if(resposta == "3"){
 			bool continuar_quiz = true;
 			int dificuldade = 1;
 			while(continuar_quiz){
-				cout << "sua pontuação total no quiz é " << pontuacao_quiz << ", a dificuladade atual é " << dificuldade << ".\n1 - gerar nova pergunta\n2 - aumentar dificuldade\n3 - diminuir dificuldade\n4 - sair\n";
+				cout << "Sua pontuação total no quiz é " << pontuacao_quiz << ", a dificuladade atual é " << dificuldade << ".\n1 - Gerar nova pergunta\n2 - Aumentar dificuldade\n3 - Diminuir dificuldade\n4 - Sair\n";
 				cin >> resposta;
 				if(resposta == "4"){continuar_quiz = false;}else
 				if(resposta == "1"){pontuacao_quiz += gerar_conversao(dificuldade);}else
 				if(resposta == "2"){if(dificuldade < 5){dificuldade++;}}else
 				if(resposta == "3"){if(dificuldade > 1){dificuldade--;}}else
-				{cout << "resposta invalida\n";}
+				{cout << "Resposta inválida.\n";}
 			}
 
 		}else if(resposta == "4"){
@@ -48,7 +48,7 @@ int main(){
 		}else if(resposta == "5"){
 			repetir = false;
 		}else{
-			cout << "resposta invalida, tente novamente\n";
+			cout << "Resposta inválida, tente novamente.\n";
 		}
 
 
