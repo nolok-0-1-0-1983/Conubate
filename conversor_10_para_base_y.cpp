@@ -1,4 +1,6 @@
 #include <iostream>
+//^ esse arquivo não usa <iostream diretamente, no entanto como planejamos
+//adicionar a função passo a passo ele vai provavelmente ser necessario
 
 #include "conversor_10_para_base_y.h"
 #include "formatador.h"
