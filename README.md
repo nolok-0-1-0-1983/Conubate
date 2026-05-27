@@ -8,7 +8,7 @@ Um conversor que transporta números entre duas bases quaisquer que estejam entr
 
 Todos os quais escritos em C++.
 
-Este software é fruto do trabalho dos aunos de graduação do 1º período de Ciência da Computação, Natan Uchôa e João Marcelo Firmino, como primeiro projeto prático da disciplina Introdução à Computação, ministrada pelo professor Rafael Durelli na Universidade Federal de Lavras (UFLA).
+Este software é fruto do trabalho dos aunos de graduação do 1º período de Ciência da Computação, Natan Uchôa e João Marcelo Firmino, como primeiro projeto prático da disciplina Introdução à Computação, ministrada pelo professor Rafael Durelli na Universidade Federal de Lavras (UFLA). [Este vídeo](https://drive.google.com/file/d/1XmyNErjJaG2bObXqN_f6xlrCGO-cSeyJ/view?usp=sharing) de apresentação de Conubate pode ser associado por pessoas associadas à UFLA.
 
 **Conubate** é um acrônimo para "**Co**nversor **nú**merico **ba**seado em **te**xto".
 
